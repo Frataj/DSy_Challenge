@@ -1,0 +1,24 @@
+version: '3.8'
+services:
+  db-dsy:
+    build:
+      context: .\Database\
+    image: dsy-postgres
+    restart: always
+    environment:
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: root
+      POSTGRES_DB: test_db
+    volumes:
+      - ./.db:/var/lib/postgresql/data
+    ports:
+      - "5439:5432"
+  service-dsy:
+    build:
+      context: .\Service\
+    image: dsy-service
+    restart: always
+    ports:
+      - "3033:3033"
+    depends_on:
+      - db-dsy
