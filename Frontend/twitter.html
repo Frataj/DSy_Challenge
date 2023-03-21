@@ -4,6 +4,7 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Twitter at home</title>
+	<script src="twitter-service.js" type="module"></script>
 </head>
 <body>
 	<header>
@@ -13,21 +14,21 @@
 		<section>
 			<form formaction="post">
 				<nav>
-				<input placeholder="User name" required>
+				<input placeholder="User name" required id="usernameInput">
 					</nav>
 				<nav>
-					<input placeholder="An engaging Title" required>
+					<input placeholder="An engaging Title" required id="titleInput">
 				</nav>
 				<nav>
-					<textarea placeholder="What's happening?" maxlength="500" rows="5" cols="33" required></textarea>
+					<textarea placeholder="What's happening?" maxlength="500" rows="5" cols="33" required id="textInput"></textarea>
 				</nav>
-				<button type="submit" id="postButton">Post</button>
+				<button type="button" id="postButton">Post</button>
 			</form>
 		</section>
 		<section>
 			<p>
 			<form>
-				<button type="submit" id="reloadButton">Reload</button>
+				<button type="button" id="reloadButton">Reload</button>
 			</form>
 			<article>
 				<h2>Jhon Doe</h2>
