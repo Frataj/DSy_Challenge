@@ -1,0 +1,18 @@
+version: '3.8'
+services:
+   flyway-offer:
+      container_name: flyway-offer
+      environment:
+         - FLYWAY_USER=${DB_OFFER_USER}
+         - FLYWAY_PASSWORD=${DB_OFFER_PASSWORD}
+         - FLYWAY_URL=jdbc:postgresql://${HOST}:${DB_OFFER_PORT}/${DB_OFFER}
+         - FLYWAY_SCHEMAS=flyway,${DB_OFFER}
+         - FLYWAY_GROUP=true
+     image: flyway/flyway:latest
+     command: -locations=filesystem:/flyway/sql -connectRetries=60 migrate
+     volumes:
+         - /vanlife-backend-offer/vanlife-backend-offer-server/src/main/resources/db.testdata
+      depends_on:
+          - backend-offer-service
+      - networks:
+        - vanlife
