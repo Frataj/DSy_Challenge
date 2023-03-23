@@ -15,26 +15,26 @@ const getChat = (request, response) => {
     }
     response.status(200).json(results.rows);
   });
-
 };
+
 const createChatEntry = (request, response) => {
+  console.log(request.body);
   const { text, title, username } = request.body
-  if(!text && !title && !username) {
-    response.status(401).send(`wrong arguments`)
-  }
-  pool.query('INSERT INTO testtable (text, title, username) VALUES ($1, $2, $3) RETURNING *', [text, title, username], (error, results) => {
-    if (error) {
-      throw error
-    }
-    pool.query('SELECT * FROM testtable', (error, results) => {
+    pool.query('INSERT INTO testtable (text, title, username) VALUES ($1, $2, $3) RETURNING *', [text, title, username], (error, results) => {
       if (error) {
+        console.log("first statement.")
         throw error
       }
-      response.status(200).json(results.rows);
-    });
-  })
-  
-}
+      pool.query('SELECT * FROM testtable', (error, results) => {
+        if (error) {
+        console.log("second statement.")
+          throw error
+        }
+        response.status(200).json(results.rows);
+      });
+    })
+  };
+
 const clearChat = (request, response) => {
   pool.query('DELETE FROM testtable', (error, results) => {
     if (error) {

@@ -9,15 +9,35 @@ function writeNewEntry(){
     const posttitle = document.getElementById('titleInput').value
     const posttext = document.getElementById('textInput').value
     const url = new URL('/post', 'http://localhost:3033')
+    console.log(url);
     const newEntry = {
         text: posttext,
         title: posttitle,
         username: username
-    }
-    url.search = new URLSearchParams({text: posttext, title: posttitle, username: username});
-    console.log(url)
-    fetch(url.href, {method: 'POST'});
+    };
+    // url.search = new URLSearchParams({text: posttext, title: posttitle, username: username});
+    // console.log(url)
+    fetch(url.href, { 
+        method: 'POST',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(newEntry)
+     });
     console.log(JSON.stringify(newEntry));
+}
+
+function clearChat(){
+    const url = new URL('/delete', 'http://localhost:3033')
+    fetch(url.href, { 
+        method: 'DELETE',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+     });
+     getAllEntries();
 }
 
 var getJSON = function(url, callback) {
@@ -37,3 +57,5 @@ var getJSON = function(url, callback) {
 
 document.querySelector('#postButton').addEventListener('click', () => writeNewEntry())
 document.querySelector('#reloadButton').addEventListener('click', () => getAllEntries())
+document.querySelector('#clearChat').addEventListener('click', () => clearChat())
+
