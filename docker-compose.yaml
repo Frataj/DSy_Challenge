@@ -13,19 +13,26 @@ services:
       - ./.db:/var/lib/postgresql/data
     ports:
       - "5439:5432"
-  service-dsy:
+  service1-dsy:
     build:
       context: .\Service\
-    image: dsy-service
+    image: dsy-service1
     restart: always
     ports:
       - "3033:3033"
     depends_on:
-      - db-dsy
+      - db-dsy   
   frontend:
     build:
-        context: /Frontend
+      context: /Frontend
     image: dsy-frontend
     ports:
-      - "80:80"
+      - "8080:80"
     restart: on-failure
+  loadbalancer:
+    build:
+      context: /Loadbalancer
+    image: dsy-loadbalancer
+    ports:
+      - "3020:3020"
+    restart: always
