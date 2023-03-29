@@ -1,14 +1,15 @@
-const Pool = require('pg').Pool
+import pg from 'pg';
+const { Pool } = pg;
 const pool = new Pool({
-  host: 'db-dsy', // localhost if not dockerized
-  port: 5432, // 5439 for localhost (if not dockerized)
+  host: process.env.DBHOST || 'localhost', // localhost if not dockerized
+  port: process.env.DBPORT || 5439, // 5439 for localhost (if not dockerized)
   database: 'test_db',
   user: 'root',
   password: 'root'
 })
 
 
-const getChat = (request, response) => {
+export const getChat = (request, response) => {
   pool.query('SELECT * FROM testtable', (error, results) => {
     if (error) {
       throw error
@@ -17,7 +18,7 @@ const getChat = (request, response) => {
   });
 };
 
-const createChatEntry = (request, response) => {
+export const createChatEntry = (request, response) => {
   console.log(request.body);
   const { text, title, username } = request.body
     pool.query('INSERT INTO testtable (text, title, username) VALUES ($1, $2, $3) RETURNING *', [text, title, username], (error, results) => {
@@ -35,7 +36,7 @@ const createChatEntry = (request, response) => {
     })
   };
 
-const clearChat = (request, response) => {
+export const clearChat = (request, response) => {
   pool.query('DELETE FROM testtable', (error, results) => {
     if (error) {
       throw error
@@ -47,10 +48,4 @@ const clearChat = (request, response) => {
       response.status(200).json(results.rows);
     });
   })
-}
-
-module.exports = { 
-    getChat,
-    createChatEntry,
-    clearChat
 }

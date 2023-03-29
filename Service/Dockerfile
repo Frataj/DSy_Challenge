@@ -16,4 +16,4 @@ EXPOSE 3033
 
 # RUN npm run build
 
-CMD [ "node", "index.ts" ]
+CMD [ "node", "index.js" ]
