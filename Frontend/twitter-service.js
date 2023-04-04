@@ -9,7 +9,7 @@ async function getAllEntries(){
 }
 
 async function fetchTweets(){
-    const url = new URL('/api/get', 'http://localhost:3020');
+    const url = new URL('/api/get', 'https://localhost');
     const response = await fetch(url.href, {method: 'get'});
     const data = await response;
     return data.json();
@@ -22,7 +22,7 @@ async function writeNewEntry(){
     document.getElementById('usernameInput').value='';
     document.getElementById('titleInput').value='';
     document.getElementById('textInput').value='';
-    const url = new URL('/api/post', 'http://localhost:3020');
+    const url = new URL('/api/post', 'https://localhost');
     const newEntry = {
         text: posttext,
         title: posttitle,
@@ -40,7 +40,7 @@ async function writeNewEntry(){
 }
 
 async function clearChat(){
-    const url = new URL('/api/delete', 'http://localhost:3020')
+    const url = new URL('/api/delete', 'https://localhost')
     await fetch(url.href, {
         method: 'DELETE',
         headers: {

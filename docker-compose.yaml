@@ -1,5 +1,6 @@
-version: '3.8'
+version: '3.9'
 services:
+
   db-dsy:
     build:
       context: .\Database\
@@ -13,6 +14,7 @@ services:
       - ./.db:/var/lib/postgresql/data
     ports:
       - "5439:5432"
+      
   service1-dsy:
     build:
       context: .\Service\
@@ -26,6 +28,7 @@ services:
       PORT: 3033
       DBHOST: db-dsy
       DBPORT: 5432
+      
   service2-dsy:
     build:
       context: .\Service\
@@ -39,6 +42,7 @@ services:
       PORT: 3034
       DBHOST: db-dsy
       DBPORT: 5432
+      
   frontend:
     build:
       context: /Frontend
@@ -46,10 +50,19 @@ services:
     ports:
       - "8080:80"
     restart: on-failure
+    
   loadbalancer:
     build:
       context: /Loadbalancer
-    image: dsy-loadbalancer
+    image: iuridiniz/haproxy:2.7.3
     ports:
-      - "3020:3020"
+      - 80:80
+      - 443:443
+      - "443:443/udp"
+    volumes:
+    - ./loadbalancer/haproxy.cfg:/etc/haproxy/haproxy.cfg
+    - ./loadbalancer/PEM/certificate.crt:/etc/haproxy/PEM/certificate.crt
     restart: always
+    depends_on: 
+      - service1-dsy
+      - service2-dsy
