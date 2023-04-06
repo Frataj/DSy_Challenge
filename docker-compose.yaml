@@ -52,8 +52,6 @@ services:
     restart: on-failure
     
   loadbalancer:
-    build:
-      context: /Loadbalancer
     image: iuridiniz/haproxy:2.7.3
     ports:
       - 80:80
