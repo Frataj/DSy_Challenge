@@ -1,4 +1,4 @@
-async function getAllEntries(){
+async function getAllTweets(){
     const allTweets = await fetchTweets();
     const tweetList = document.querySelector('#allTweets');
     tweetList.innerHTML = '';
@@ -15,7 +15,7 @@ async function fetchTweets(){
     return data.json();
 }
 
-async function writeNewEntry(){
+async function writeNewTweet(){
     const username = document.getElementById('usernameInput').value;
     const posttitle = document.getElementById('titleInput').value;
     const posttext = document.getElementById('textInput').value;
@@ -36,10 +36,10 @@ async function writeNewEntry(){
         },
         body: JSON.stringify(newEntry)
      });
-    await getAllEntries();
+    await getAllTweets();
 }
 
-async function clearChat(){
+async function clearExistingTweets(){
     const url = new URL('/api/delete', 'https://localhost')
     await fetch(url.href, {
         method: 'DELETE',
@@ -48,10 +48,10 @@ async function clearChat(){
             'Content-Type': 'application/json'
         },
      });
-     await getAllEntries();
+     await getAllTweets();
 }
 
-document.querySelector('#postButton').addEventListener('click', () => writeNewEntry())
-document.querySelector('#reloadButton').addEventListener('click', () => getAllEntries())
-document.querySelector('#clearChat').addEventListener('click', () => clearChat())
+document.querySelector('#postButton').addEventListener('click', () => writeNewTweet())
+document.querySelector('#reloadButton').addEventListener('click', () => getAllTweets())
+document.querySelector('#clearChat').addEventListener('click', () => clearExistingTweets())
 
