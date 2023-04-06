@@ -1,4 +1,4 @@
-import { getChat, createChatEntry, clearChat } from "./queries.js";
+import { getChat, createChatEntry, clearChat, checkHealth } from "./queries.js";
 import express from "express";
 import cors from "cors";
 import bodyParser from "body-parser";
@@ -19,6 +19,7 @@ app.get('/', (request, response) => {
     response.json({ info: 'Node.js, Express, and Postgres API' })
   });
 app.get('/get', getChat);
+app.get('/health', checkHealth);
 app.post('/post', createChatEntry);
 app.delete('/delete', clearChat);
 
