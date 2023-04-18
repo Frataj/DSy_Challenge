@@ -51,5 +51,6 @@ export const clearChat = (request, response) => {
 }
 
 export const checkHealth = (request, response) => {
-	response.status(200).json();
+	response.status(200).json({});
+  // console.log("healthcheck by HAProxy -> Service")
 }
