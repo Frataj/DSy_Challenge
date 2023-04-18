@@ -58,8 +58,8 @@ services:
       - 443:443
       - "443:443/udp"
     volumes:
-    - ./loadbalancer/haproxy.cfg:/etc/haproxy/haproxy.cfg
-    - ./loadbalancer/PEM/certificate.crt:/etc/haproxy/PEM/certificate.crt
+    - ./Loadbalancer/haproxy.cfg:/etc/haproxy/haproxy.cfg
+    - ./Loadbalancer/PEM/certificate.crt:/etc/haproxy/PEM/certificate.crt
     restart: always
     depends_on: 
       - service1-dsy
