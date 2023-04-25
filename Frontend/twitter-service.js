@@ -52,6 +52,8 @@ async function clearExistingTweets(){
 }
 
 document.querySelector('#postButton').addEventListener('click', () => writeNewTweet())
-document.querySelector('#reloadButton').addEventListener('click', () => getAllTweets())
 document.querySelector('#clearChat').addEventListener('click', () => clearExistingTweets())
 
+var intervalId = window.setInterval(function(){
+    getAllTweets();
+  }, 1000);
