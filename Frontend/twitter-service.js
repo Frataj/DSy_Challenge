@@ -8,10 +8,6 @@ async function getAllTweets(){
     })
 }
 
-setInterval(function() {
-    fetchTweets();
-}, 1000);
-
 async function fetchTweets(){
     const url = new URL('/api/get', 'https://localhost');
     const response = await fetch(url.href, {method: 'get'});
